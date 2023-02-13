@@ -11,8 +11,18 @@ async function findBookingById(userId: number) {
   });
 }
 
+async function createBooking(userId: number, roomId: number) {
+  return prisma.booking.create({
+    data: {
+      userId,
+      roomId,
+    },
+  });
+}
+
 const bookingRepository = {
   findBookingById,
+  createBooking,
 };
 
 export default bookingRepository;
