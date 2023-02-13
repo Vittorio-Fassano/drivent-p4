@@ -33,9 +33,20 @@ const Validation = async (userId: number, roomId: number) => {
   }
 };
 
+async function putBookingService(userId: number, roomId: number, bookingId: number) {
+  const booking = await bookingRepository.findBookingById(userId);
+  if (!booking) {
+    throw forbiddenError();
+  }
+  await Validation(userId, roomId);
+  const result = await bookingRepository.updateBooking(userId, roomId, bookingId);
+  return result;
+}
+
 const bookingService = {
   getBookingService,
   postBookingService,
+  putBookingService
 };
 
 export default bookingService;
